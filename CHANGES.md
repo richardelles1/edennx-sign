@@ -17,3 +17,7 @@ signing, storage or Pro/enterprise code changed.
 Not changed: `LICENSE`, `LICENSE_ADDITIONAL_TERMS`, PDF creator metadata, the audit certificate, the signing
 flow, any `Docuseal.product_name` call that identifies the software. Email bodies are the account's own templates,
 edited in the application's settings, not in source.
+
+## 17 October 2026, later: logo
+
+- `public/edennx-mark.png`, `edennx-logo.png`, `edennx-logo-dark.png`, favicons: the mark's opaque white backing tile removed so the logo is transparent on any page colour (`clean-mark.py` is in EdenNX's design record, not here).
