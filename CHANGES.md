@@ -34,6 +34,7 @@ edited in the application's settings, not in source.
 - `shared/_edennx_lockup` (mark plus text wordmark) used wherever the logo shows; `public/edennx-logo.png` removed;
   SVG and PNG lockups added for e-mail. DM Sans self-hosted in `public/fonts/` (SIL OFL, licence included) and
   declared in `shared/_fonts`; theme colours and font family in `tailwind.config.js`.
+- The DocuSeal attribution ("Powered by DocuSeal") shows on the sign-in page, which had none before the landing page was removed, as well as on every signing and completion page and in emails, with the EdenNX Sign source link beside it.
 - Unchanged: signing, storage, audit and certificate code, `LICENSE`, `LICENSE_ADDITIONAL_TERMS`, the DocuSeal
   attribution and the source link.
 
