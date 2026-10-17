@@ -1,0 +1,11 @@
+EdenNX Sign is a modified version of DocuSeal (https://github.com/docusealco/docuseal),
+Copyright (c) DocuSeal LLC, licensed under the GNU Affero General Public License v3.0 with the
+additional terms in LICENSE_ADDITIONAL_TERMS. Both files are unchanged in this repository.
+
+The original DocuSeal attribution ("Powered by DocuSeal - open source documents software") is retained
+in the signing and completion pages and in emails. DocuSeal's name remains in the PDF creator field and the
+audit certificate.
+
+This repository's changes are listed in CHANGES.md and are offered under the same licence. This is the source
+of the version running at https://sign.edennx.com. DocuSeal is a trademark of its owner; EdenNX is not
+endorsed by or affiliated with DocuSeal.
