@@ -37,6 +37,10 @@
     <div class="max-w-6xl mx-auto px-4 md:px-2 mb-8">
       <%= yield %>
     </div>
+    <%# EdenNX fork: DocuSeal attribution (AGPL section 7(b) term) and the source link on every page of the application. %>
+    <% unless turbo_native_app? || controller_name == 'sessions' %>
+      <div class="max-w-6xl mx-auto px-4 md:px-2 pb-8 text-xs" style="color: #525F7A"><%= render 'shared/attribution' %></div>
+    <% end %>
     <%= render 'shared/body_scripts' %>
   </body>
 </html>

@@ -37,4 +37,4 @@ edited in the application's settings, not in source.
 - The DocuSeal attribution ("Powered by DocuSeal") shows on the sign-in page, which had none before the landing page was removed, as well as on every signing and completion page and in emails, with the EdenNX Sign source link beside it.
 - Unchanged: signing, storage, audit and certificate code, `LICENSE`, `LICENSE_ADDITIONAL_TERMS`, the DocuSeal
   attribution and the source link.
-
+- `layouts/application`: the DocuSeal attribution and the EdenNX Sign source link are shown at the foot of every application page (the sign-in page already shows them).
