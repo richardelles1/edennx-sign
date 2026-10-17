@@ -59,6 +59,9 @@ Rails.application.configure do
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   config.assume_ssl = ENV['FORCE_SSL'].present? && ENV['FORCE_SSL'] != 'false'
 
+  # TLS ends at the Cloudflare tunnel; tell browsers to stay on https (HSTS).
+  config.action_dispatch.default_headers = config.action_dispatch.default_headers.merge('Strict-Transport-Security' => 'max-age=31536000')
+
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = ENV['FORCE_SSL'].present? && ENV['FORCE_SSL'] != 'false'
 
