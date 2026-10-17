@@ -1,12 +1,19 @@
 <%= render 'shared/navbar_warning' %>
-<div class="max-w-6xl mb-4 mx-auto px-4 md:px-2 py-3 flex items-center justify-between">
+<% on_sign_in = !signed_in? && request.path == new_user_session_path %>
+<% unless on_sign_in %>
+<div class="bg-white border-b border-base-300 mb-8">
+<div class="max-w-6xl mx-auto px-4 md:px-2 h-16 flex items-center justify-between">
   <div class="flex items-center space-x-4">
-    <a href="<%= root_path %>" class="text-2xl font-bold items-center flex space-x-2">
+    <a href="<%= root_path %>" class="items-center flex" aria-label="EdenNX Sign, home">
       <%= render 'shared/title' %>
     </a>
-    <span class="hidden sm:inline">
-      <%= render 'shared/github' if request.path.starts_with?('/settings') %>
-    </span>
+    <% if signed_in? %>
+      <nav class="hidden sm:flex items-center space-x-6 ml-6 text-sm font-semibold">
+        <% templates_active = request.path.starts_with?('/templates') || request.path == root_path || request.path.starts_with?('/folders') %>
+        <%= link_to t('templates'), root_path, class: "py-5 border-b-2 #{templates_active ? 'border-primary text-base-content' : 'border-transparent'} !no-underline", style: templates_active ? '' : 'color: #525F7A' %>
+        <%= link_to 'Sent', submissions_path, class: "py-5 border-b-2 #{request.path.starts_with?('/submissions') ? 'border-primary text-base-content' : 'border-transparent'} !no-underline", style: request.path.starts_with?('/submissions') ? '' : 'color: #525F7A' %>
+      </nav>
+    <% end %>
   </div>
   <% if signed_in? %>
     <div class="space-x-4 flex items-center">
@@ -19,15 +26,20 @@
         </span>
       <% else %>
         <div class="flex items-center justify-center space-x-4 mr-1">
-          <%= render 'shared/navbar_buttons' %>
-          <%= link_to t('settings'), settings_profile_index_path, class: 'hidden md:inline-flex font-medium text-lg', id: 'account_settings_button' %>
+          <%= link_to t('settings'), settings_profile_index_path, class: 'hidden', id: 'account_settings_button' %>
         </div>
       <% end %>
       <div class="dropdown dropdown-end">
-        <label tabindex="0" class="cursor-pointer bg-base-content text-purple-300 rounded-full p-2 w-9 justify-center flex">
-          <span class="text-sm align-text-top"><%= current_user.initials %></span>
+        <label tabindex="0" class="cursor-pointer rounded-full w-8 h-8 items-center justify-center flex" style="background: #E8F3EC; color: #24743F">
+          <span class="text-[13px] font-semibold"><%= current_user.initials %></span>
         </label>
         <ul tabindex="0" class="z-10 dropdown-content p-2 mt-2 shadow menu text-base bg-base-100 rounded-box text-right" style="min-width: 160px;">
+          <li class="sm:hidden">
+            <%= link_to 'Sent', submissions_path, class: 'flex items-center' do %>
+              <%= svg_icon('layout_list', class: 'w-5 h-5 flex-shrink-0 stroke-2') %>
+              <span class="mr-1">Sent</span>
+            <% end %>
+          </li>
           <li class="md:hidden">
             <%= link_to settings_path, class: 'flex items-center' do %>
               <%= svg_icon('adjustments', class: 'w-5 h-5 flex-shrink-0 stroke-2') %>
@@ -40,27 +52,11 @@
               <span class="mr-1"><%= t('profile') %></span>
             <% end %>
           </li>
-          <% if !Docuseal.demo? && can?(:manage, EncryptedConfig) %>
-            <li>
-              <%= link_to Docuseal.multitenant? ? console_redirect_index_path : Docuseal::CONSOLE_URL, data: { turbo_prefetch: false }, class: 'flex items-center' do %>
-                <%= svg_icon('terminal', class: 'w-5 h-5 flex-shrink-0 stroke-2') %>
-                <%= t('console') %>
-              <% end %>
-            </li>
-          <% end %>
           <% if can?(:read, EncryptedConfig.new(key: EncryptedConfig::ESIGN_CERTS_KEY, account: current_account)) %>
             <li>
               <%= link_to settings_esign_path, class: 'flex items-center' do %>
                 <%= svg_icon('zoom_check', class: 'w-5 h-5 flex-shrink-0 stroke-2') %>
                 <span class="mr-1 whitespace-nowrap"><%= t('verify_pdf') %></span>
-              <% end %>
-            </li>
-          <% end %>
-          <% if Docuseal.multitenant? || current_user.role == 'superadmin' %>
-            <li>
-              <%= link_to Docuseal::CHATGPT_URL, target: 'blank', class: 'flex items-center' do %>
-                <%= svg_icon('sparkles', class: 'w-5 h-5 flex-shrink-0 stroke-2') %>
-                <span class="mr-1 whitespace-nowrap"><%= t('ask_ai') %></span>
               <% end %>
             </li>
           <% end %>
@@ -107,3 +103,5 @@
     </div>
   <% end %>
 </div>
+</div>
+<% end %>

@@ -21,3 +21,19 @@ edited in the application's settings, not in source.
 ## 17 October 2026, later: logo
 
 - `public/edennx-mark.png`, `edennx-logo.png`, `edennx-logo-dark.png`, favicons: the mark's opaque white backing tile removed so the logo is transparent on any page colour (`clean-mark.py` is in EdenNX's design record, not here).
+
+## 17 October 2026, later: sign-in and home pages (view and asset changes only)
+
+- Signed-out `/` redirects to sign-in (`dashboard_controller.rb`); `pages/landing` is no longer rendered. Sign-in is one
+  centred card (`devise/sessions/new`); page title "Sign in · EdenNX Sign".
+- Navbar (`shared/_navbar`): white bar, EdenNX lockup, Templates and Sent tabs, avatar menu without the Console and
+  Ask AI links; the "Upgrade" and GitHub links on settings pages are removed.
+- Templates page (`templates_dashboard/index`, `templates/_template`, `_upload_button`, `_dropzone`,
+  `template_folders/_folder`): "Templates" heading, one "New template" button, card grid, a Send action and a menu on
+  each card, an empty state in place of the permanent dropzone, the tour box removed.
+- `shared/_edennx_lockup` (mark plus text wordmark) used wherever the logo shows; `public/edennx-logo.png` removed;
+  SVG and PNG lockups added for e-mail. DM Sans self-hosted in `public/fonts/` (SIL OFL, licence included) and
+  declared in `shared/_fonts`; theme colours and font family in `tailwind.config.js`.
+- Unchanged: signing, storage, audit and certificate code, `LICENSE`, `LICENSE_ADDITIONAL_TERMS`, the DocuSeal
+  attribution and the source link.
+

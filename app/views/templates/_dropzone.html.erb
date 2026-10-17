@@ -2,20 +2,15 @@
   <input type="hidden" name="form_id" value="<%= form_id %>">
   <button type="submit" class="hidden"></button>
   <file-dropzone data-submit-on-upload="true" class="w-full">
-    <label for="file_dropzone_input" class="w-full block h-52 relative hover:bg-base-200/30 rounded-xl border-2 border-base-300 border-dashed" data-target="file-dropzone.area">
+    <label for="file_dropzone_input" class="w-full block h-[280px] relative cursor-pointer rounded-2xl border border-base-300 border-dashed bg-white hover:border-primary/60" data-target="file-dropzone.area">
       <div class="absolute top-0 right-0 left-0 bottom-0 flex items-center justify-center p-2 pointer-events-none">
         <div class="flex flex-col items-center text-center">
           <span data-target="file-dropzone.icon" class="flex flex-col items-center <%= 'mb-5' if Docuseal.multitenant? %>">
-            <span>
-              <%= svg_icon('cloud_upload', class: 'w-10 h-10') %>
-            </span>
-            <div class="font-medium mb-1">
-              <%= t('upload_a_new_document') %>
-            </div>
-            <div class="text-sm">
-              <span class="md:hidden"><%= t('click_to_upload') %></span>
-              <span class="hidden md:inline"><%= t('click_to_upload_or_drag_and_drop_html') %></span>
-            </div>
+            <img src="/edennx-mark.png" alt="" width="48" height="48" class="mb-3">
+            <div class="text-xl font-semibold mb-1">No templates yet</div>
+            <div class="text-[15px] mb-4 max-w-xs" style="color: #525F7A">Upload a PDF and place the fields once. Send it as often as you need.</div>
+            <span class="base-button !h-10 !min-h-0 !rounded-[10px] !text-[15px] !font-semibold !normal-case">Upload a PDF</span>
+            <div class="text-sm mt-2" style="color: #525F7A"><span class="hidden md:inline">or drag it here</span></div>
             <% if Docuseal.multitenant? && !turbo_native_app? %>
               <a class="flex absolute bottom-4 items-center text-sm mt-2 pointer-events-auto" href="<%= new_template_path(modal_tab: 'google_drive') %>" data-turbo-frame="modal" data-native-modal="medium">
                 <span><%= t('or_add_from') %></span>

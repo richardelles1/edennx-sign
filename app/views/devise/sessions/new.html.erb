@@ -1,24 +1,36 @@
 <%= content_for(:canonical_url, new_user_session_url) %>
-<div class="max-w-lg mx-auto px-2">
+<% content_for(:html_title, "#{t('sign_in')} · #{Docuseal::BRAND_NAME}") %>
+<div class="min-h-[70vh] flex flex-col items-center justify-start md:justify-center pt-16 md:pt-0">
   <%= render 'devise/shared/select_server' if Docuseal.multitenant? %>
-  <h1 class="text-4xl font-bold text-center mt-8"><%= t('sign_in') %></h1>
-  <%= form_for(resource, as: resource_name, html: { class: 'space-y-6' }, data: { turbo: params[:redir].blank? }, url: session_path(resource_name)) do |f| %>
-    <%= render 'hidden_fields' %>
-    <div class="space-y-2" dir="auto">
-      <div class="form-control">
-        <%= f.label :email, t(:email), class: 'label' %>
-        <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'base-input' %>
+  <a href="<%= root_path %>" class="mb-8" aria-label="EdenNX Sign, home">
+    <%= render 'shared/edennx_lockup', size: 36 %>
+  </a>
+  <div class="w-full max-w-[400px] bg-white border border-base-300 rounded-2xl p-8" style="box-shadow: 0 1px 2px rgb(21 28 40 / .04)">
+    <h1 class="text-2xl font-semibold leading-8"><%= t('sign_in').capitalize %></h1>
+    <%= form_for(resource, as: resource_name, html: { class: 'space-y-4 mt-6' }, data: { turbo: params[:redir].blank? }, url: session_path(resource_name)) do |f| %>
+      <%= render 'hidden_fields' %>
+      <div class="space-y-4" dir="auto">
+        <div class="form-control">
+          <%= f.label :email, t(:email), class: 'label !px-0 !py-1 text-sm font-semibold' %>
+          <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'base-input !h-11 !rounded-[10px] !border-base-300 focus:!outline-primary' %>
+        </div>
+        <div class="form-control">
+          <div class="flex items-center justify-between">
+            <%= f.label :password, t(:password), class: 'label !px-0 !py-1 text-sm font-semibold' %>
+            <% if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+              <%= link_to t('forgot_your_password_'), new_password_path(resource_name), class: 'text-sm text-neutral !no-underline hover:!underline' %>
+            <% end %>
+          </div>
+          <%= f.password_field :password, autocomplete: 'current-password', class: 'base-input !h-11 !rounded-[10px] !border-base-300 focus:!outline-primary' %>
+        </div>
       </div>
-      <div class="form-control">
-        <%= f.label :password, t(:password), class: 'label' %>
-        <%= f.password_field :password, autocomplete: 'current-password', class: 'base-input' %>
+      <div class="form-control pt-2">
+        <%= f.button button_title(title: t(:sign_in).capitalize, disabled_with: t(:signing_in).capitalize), class: 'base-button !h-11 !min-h-0 !rounded-[10px] !text-[15px] !font-semibold !normal-case' %>
       </div>
-    </div>
-    <div class="form-control">
-      <%= f.button button_title(title: t(:sign_in), disabled_with: t(:signing_in)), class: 'base-button' %>
-    </div>
-  <% end %>
-  <%= render 'omniauthable' %>
-  <%= render 'extra_links' %>
-  <%= render 'devise/shared/links' %>
+    <% end %>
+    <%= render 'omniauthable' %>
+    <%= render 'extra_links' %>
+  </div>
+  <p class="mt-6 text-sm text-center" style="color: #525F7A">Here to sign a document? Open the link in your email.</p>
+  <p class="mt-4 text-xs text-center" style="color: #525F7A">EdenNX Sign · <a href="<%= Docuseal::SOURCE_URL %>" class="underline" rel="noopener">Source code</a></p>
 </div>
