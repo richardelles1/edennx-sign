@@ -1,5 +1,5 @@
 <%= form_for '', url: templates_upload_path, id: form_id = SecureRandom.uuid, method: :post, class: 'inline', html: { enctype: 'multipart/form-data' } do %>
-  <label for="upload_template" id="templates_upload_button" class="base-button !h-10 !min-h-0 !rounded-[10px] !text-[15px] !font-semibold !normal-case gap-1 cursor-pointer">
+  <label for="upload_template" id="templates_upload_button" class="base-button !min-h-0 !text-[15px] !font-semibold !normal-case gap-1 cursor-pointer <%= local_assigns[:pill] ? '!h-11 !rounded-full !px-6' : '!h-10 !rounded-[10px]' %>">
     <button type="submit" class="hidden peer"></button>
     <span class="peer-disabled:hidden">
       <span class="flex items-center justify-center space-x-2">
