@@ -270,8 +270,7 @@ class SubmitterMailer < ApplicationMailer
 
   # EdenNX fork: names used by the default invitation and completed wording (Cleo's copy).
   def edennx_sender_name(submitter)
-    user = submitter.submission.created_by_user || submitter.submission.template&.author
-    user&.full_name.presence || submitter.account.name
+    Docuseal::SENDER_NAME
   end
 
   def edennx_document_name(submitter)
@@ -318,7 +317,8 @@ class SubmitterMailer < ApplicationMailer
 
       put_metadata('from_user_id' => user.id)
 
-      user.friendly_name
+      # EdenNX fork: mail comes from the company, whoever pressed send (Rich, 17 Oct).
+      Mail::Address.new(user.email).tap { |e| e.display_name = Docuseal::SENDER_NAME }.format
     end
   end
 

@@ -8,6 +8,7 @@ module Docuseal
   # EdenNX fork: our name for headers and emails. PRODUCT_NAME stays DocuSeal because attribution, the PDF creator
   # field and the audit certificate must keep saying what this software is.
   BRAND_NAME = 'EdenNX Sign'
+  SENDER_NAME = 'EdenNX'
   SOURCE_URL = ENV.fetch('SOURCE_URL', 'https://github.com/richardelles1/edennx-sign')
   DEFAULT_APP_URL = ENV.fetch('APP_URL', 'http://localhost:3000')
   GITHUB_URL = 'https://github.com/docusealco/docuseal'

@@ -5,7 +5,7 @@
   <% end %>
 <% elsif @submitter.with_signature_fields? %>
   <% content_for :preheader, "Open it, sign where it's marked, then press Finish." %>
-  <% sender = (@submitter.submission.created_by_user || @submitter.submission.template&.author)&.full_name.presence || @current_account.name %>
+  <% sender = Docuseal::SENDER_NAME %>
   <% doc = @submitter.submission.name || @submitter.submission.template&.name %>
   <p>Hi <%= @submitter.name.to_s.split.first.presence || 'there' %>,</p>
   <p><%= sender %> sent you <%= doc %> to sign.</p>
