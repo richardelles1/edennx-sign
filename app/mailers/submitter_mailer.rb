@@ -112,8 +112,7 @@ class SubmitterMailer < ApplicationMailer
 
     I18n.with_locale(@current_account.locale) do
       subject =
-        ReplaceEmailVariables.call(@subject.presence || I18n.t(:template_name_has_been_completed_by_submitters),
-                                   submitter:)
+        ReplaceEmailVariables.call(@subject.presence || "#{edennx_document_name(submitter)} is signed", submitter:)
 
       mail(from: from_address_for_submitter(submitter),
            to: to || normalize_user_email(user),
@@ -263,10 +262,20 @@ class SubmitterMailer < ApplicationMailer
     elsif submitter.viewer?
       I18n.t(:you_are_invited_to_view_a_document)
     elsif submitter.with_signature_fields?
-      I18n.t(:you_are_invited_to_sign_a_document)
+      "#{edennx_sender_name(submitter)} sent you #{edennx_document_name(submitter)} to sign"
     else
       I18n.t(:you_are_invited_to_submit_a_form)
     end
+  end
+
+  # EdenNX fork: names used by the default invitation and completed wording (Cleo's copy).
+  def edennx_sender_name(submitter)
+    user = submitter.submission.created_by_user || submitter.submission.template&.author
+    user&.full_name.presence || submitter.account.name
+  end
+
+  def edennx_document_name(submitter)
+    submitter.submission.name || submitter.submission.template&.name
   end
 
   def build_submitter_preferences_index(submitter)

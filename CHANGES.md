@@ -43,3 +43,4 @@ edited in the application's settings, not in source.
 - `app/views/layouts/mailer.html.erb`: EdenNX-branded email shell (table layout, inline styles, dark scheme via media query); `shared/_email_button` for the call-to-action; footer keeps the DocuSeal attribution line and source link.
 - Invitation, reminder (same template), completed, document-copy and verification-code emails use the shell and button.
 - The EdenNX mark is now served as `edennx-mark-v2.png` (pages) and `edennx-mark.png?v=2` (email) because a CDN held the superseded file.
+- Default invitation and completed wording and subjects follow EdenNX's approved copy; header is the EdenNX kit lockup on the white card (`public/edennx-lockup.png`), the card stays white in dark mode.

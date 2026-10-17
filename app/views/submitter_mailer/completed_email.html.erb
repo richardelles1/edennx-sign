@@ -1,7 +1,10 @@
 <% if @body.present? %>
   <%= render 'custom_content', content: @body, submitter: @submitter %>
 <% else %>
-  <p><%= t('hi_there') %>,</p>
-  <p><%= I18n.t(:name_has_been_completed_by_submitters, name: @submitter.submission.name || @submitter.submission.template&.name, submitters: @submitter.submission.submitters.order(:completed_at).map { |e| e.name || e.email || e.phone }.uniq.join(', ')) %></p>
-  <%= render 'shared/email_button', label: I18n.t(:view_document), url: submission_url(@submitter.submission) %>
+  <% doc = @submitter.submission.name || @submitter.submission.template&.name %>
+  <% total = @submitter.submission.submitters.count %>
+  <% content_for :preheader, "All #{total} signatures are in. The signed copy is attached." %>
+  <p><%= doc %> now has all <%= total %> signatures.</p>
+  <p>The signed copy is attached to this email. Keep it with your records.</p>
+  <%= render 'shared/email_button', label: 'Download signed copy', url: submission_url(@submitter.submission) %>
 <% end %>

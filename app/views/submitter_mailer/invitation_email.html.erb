@@ -3,6 +3,14 @@
   <% if !@body.match?(ReplaceEmailVariables::SUBMITTER_LINK) && !@body.match?(ReplaceEmailVariables::SUBMITTER_ID) && !@body.match?(ReplaceEmailVariables::SUBMISSION_LINK) && !@body.match?(ReplaceEmailVariables::TEMPLATE_ID) && !@submitter.submission.source.in?(%w[api embed]) %>
     <p><%= link_to nil, submit_form_url(slug: @submitter.slug, t: SubmissionEvents.build_tracking_param(@submitter, 'click_email'), host: @custom_domain || ENV.fetch('EMAIL_HOST', Docuseal.default_url_options[:host])) %></p>
   <% end %>
+<% elsif @submitter.with_signature_fields? %>
+  <% content_for :preheader, "Open it, sign where it's marked, then press Finish." %>
+  <% sender = (@submitter.submission.created_by_user || @submitter.submission.template&.author)&.full_name.presence || @current_account.name %>
+  <% doc = @submitter.submission.name || @submitter.submission.template&.name %>
+  <p>Hi <%= @submitter.name.to_s.split.first.presence || 'there' %>,</p>
+  <p><%= sender %> sent you <%= doc %> to sign.</p>
+  <% if @submitter.submission.expire_at %><p>The link works until <%= I18n.l(@submitter.submission.expire_at.to_date, format: '%B %-d, %Y') %>.</p><% end %>
+  <%= render 'shared/email_button', label: 'Review and sign', url: submit_form_url(slug: @submitter.slug, t: SubmissionEvents.build_tracking_param(@submitter, 'click_email'), host: @custom_domain || ENV.fetch('EMAIL_HOST', Docuseal.default_url_options[:host])) %>
 <% else %>
   <p><%= t('hi_there') %>,</p>
   <p><%= I18n.t(@submitter.with_signature_fields? ? :you_have_been_invited_to_sign_the_name : :you_have_been_invited_to_submit_the_name_form, name: @submitter.submission.name || @submitter.submission.template&.name) %></p>
