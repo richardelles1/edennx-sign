@@ -1,7 +1,4 @@
 <p>
-  ---
-</p>
-<p>
   <% if @current_account&.testing? %>
     <%= t('sent_using_product_name_in_testing_mode_html', product_url: "#{Docuseal::PRODUCT_EMAIL_URL}/start", product_name: Docuseal.product_name) %>
   <% elsif Docuseal.multitenant? %>

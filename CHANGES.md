@@ -38,3 +38,8 @@ edited in the application's settings, not in source.
 - Unchanged: signing, storage, audit and certificate code, `LICENSE`, `LICENSE_ADDITIONAL_TERMS`, the DocuSeal
   attribution and the source link.
 - `layouts/application`: the DocuSeal attribution and the EdenNX Sign source link are shown at the foot of every application page (the sign-in page already shows them).
+
+## Email redesign (17 Oct 2026)
+- `app/views/layouts/mailer.html.erb`: EdenNX-branded email shell (table layout, inline styles, dark scheme via media query); `shared/_email_button` for the call-to-action; footer keeps the DocuSeal attribution line and source link.
+- Invitation, reminder (same template), completed, document-copy and verification-code emails use the shell and button.
+- The EdenNX mark is now served as `edennx-mark-v2.png` (pages) and `edennx-mark.png?v=2` (email) because a CDN held the superseded file.

@@ -1,12 +1,68 @@
+<%# EdenNX fork: branded email shell (EdenNX lane of the design system: ink #2b2929, leaf #336408, lime #79ab0e).
+    Table layout with inline styles so Outlook renders it; the dark scheme is a media query for clients that honour it. %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title></title>
+    <title>EdenNX Sign</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <style></style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="supported-color-schemes" content="light dark">
+    <style>
+      body { margin: 0; padding: 0; }
+      .content p { margin: 0 0 16px; }
+      .content a { color: #336408; font-weight: 600; text-decoration: underline; }
+      .footer p { margin: 0 0 6px; }
+      .footer a { color: #5b6657; text-decoration: underline; }
+      @media only screen and (max-width: 620px) {
+        .shell { width: 100% !important; }
+        .pad { padding-left: 20px !important; padding-right: 20px !important; }
+      }
+      @media (prefers-color-scheme: dark) {
+        .outer { background-color: #0f1a12 !important; }
+        .card { background-color: #172419 !important; }
+        .ink { color: #f3f7ea !important; }
+        .leaf { color: #79ab0e !important; }
+        .content, .content p { color: #e8efe0 !important; }
+        .content a { color: #9cc94a !important; }
+        .btn-cell { background-color: #79ab0e !important; }
+        .content a.btn-link { color: #10170f !important; text-decoration: none; }
+        .footer, .footer p, .footer a { color: #9aa793 !important; }
+        .rule { background-color: #2a3a2c !important; }
+      }
+    </style>
   </head>
-  <body dir="<%= TextUtils.rtl?(yield) ? 'rtl' : 'auto' %>">
-    <%= yield %>
-    <%= render partial: 'shared/mailer_attribution' %>
+  <body dir="<%= TextUtils.rtl?(yield) ? 'rtl' : 'auto' %>" style="margin:0;padding:0;background-color:#f3f7ea;">
+    <table role="presentation" class="outer" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f3f7ea" style="background-color:#f3f7ea;">
+      <tr>
+        <td align="center" style="padding:28px 12px;">
+          <table role="presentation" class="shell" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;">
+            <tr>
+              <td class="pad" style="padding:0 4px 16px;font-family:'DM Sans',Arial,Helvetica,sans-serif;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td style="vertical-align:middle;padding-right:10px;"><img src="<%= "https://#{ENV.fetch('EMAIL_HOST', Docuseal.default_url_options[:host])}" %>/edennx-mark.png?v=2" width="32" height="32" alt="" style="display:block;border:0;"></td>
+                    <td style="vertical-align:middle;font-family:'DM Sans',Arial,Helvetica,sans-serif;font-size:21px;line-height:24px;font-weight:700;letter-spacing:-0.4px;"><span class="ink" style="color:#2b2929;">Eden</span><span class="leaf" style="color:#336408;">NX</span> <span class="ink" style="color:#2b2929;font-weight:500;">Sign</span></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr><td height="4" bgcolor="#79ab0e" style="height:4px;line-height:4px;font-size:0;background-color:#79ab0e;border-radius:6px 6px 0 0;">&nbsp;</td></tr>
+            <tr>
+              <td class="card pad" bgcolor="#ffffff" style="background-color:#ffffff;padding:32px 36px 20px;border-radius:0 0 12px 12px;">
+                <div class="content" style="font-family:'DM Sans',Arial,Helvetica,sans-serif;font-size:16px;line-height:24px;color:#2b2929;">
+                  <%= yield %>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="pad footer" style="padding:18px 8px 0;font-family:'DM Sans',Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;color:#5b6657;">
+                <%= render partial: 'shared/mailer_attribution' %>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
   </body>
 </html>
